@@ -1,1 +1,20 @@
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
 
+-- Configuration: set to 'true' if your game is strictly first-person
+local FIRST_PERSON_ONLY = false
+
+RunService.RenderStepped:Connect(function()
+    -- Check if the device is detecting a mouse
+    if UserInputService.MouseEnabled then
+
+        -- If the game is first-person or the player is holding the right mouse button
+        if FIRST_PERSON_ONLY or UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton2) then
+            UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
+        else
+            -- Release the cursor so the player can interact with menus/UI
+            UserInputService.MouseBehavior = Enum.MouseBehavior.Default
+        end
+
+    end
+end)
